@@ -20,7 +20,7 @@ void check_for_executable(char command[]) {
         snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
 
         if ( access(full_path, X_OK) == 0) {
-            printf("%s is %s", command, full_path);
+            printf("%s is %s\n", command, full_path);
             return;
         }
 
