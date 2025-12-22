@@ -17,11 +17,7 @@ void check_for_executable(char command[]) {
     while (dir != NULL) {
         char full_path[1024];
         //formatting for windows envs
-        if(dir[strlen(dir) - 1] == '\\'){
-            snprintf(full_path, sizeof(full_path), "%s%s", dir, command);
-        }else{
-            snprintf(full_path, sizeof(full_path), "%s\\%s", dir, command);
-        }
+        snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
 
         if ( access(full_path, X_OK) == 0) {
             printf("%s is %s", command, full_path);
