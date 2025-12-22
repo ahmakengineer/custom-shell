@@ -3,7 +3,21 @@
 #include <string.h>
 #define MAX_ARGS 10
 
-int parse_command(char command[], char *argv[]) {
+typedef enum Commands {
+    CMD_EXIT,
+    CMD_ECHO,
+    CMD_TYPE,
+    NONE
+} shell_commands;
+
+shell_commands parse_command(char command[]){
+    if(strcmp(command, "exit") == 0) return CMD_EXIT;
+    if(strcmp(command, "echo") == 0) return CMD_ECHO;
+    if(strcmp(command, "type") == 0) return CMD_TYPE;
+
+    return NONE;
+}
+int get_arguments(char command[], char *argv[]) {
     int argc = 0;
     char *token = strtok(command, " ");
     while(token != NULL && argc < MAX_ARGS - 1){
@@ -25,26 +39,30 @@ int main(int argc, char *argv[]) {
       char *argv[MAX_ARGS];
       fgets(command, sizeof(command), stdin);
       command[strcspn(command, "\n")] = '\0';
-
-      if(strcmp(command, "exit") == 0) {
-          break;
+      int argc = get_arguments(command, argv);
+      shell_commands cmd = parse_command(argv[0]);
+      switch(cmd) {
+        case CMD_EXIT :
+            return 0;
+            break;
+        case CMD_ECHO :
+            for(int i = 1; i < argc; i++){
+                printf("%s ", argv[i]);
+            }
+            printf("\n");
+            continue;
+            break;
+        case CMD_TYPE:
+            if(parse_command(argv[1]) != NONE)
+            printf("%s is a shell builtin\n", argv[1]);
+            else
+            printf("%s: command not found\n", argv[1]);
+            break;
+        default:
+            printf("%s: command not found\n", command);
+            break;
       }
-      
-      int argc = parse_command(command, argv);
 
-      if(argc == 0) {
-          continue;
-      }
-
-      if(strcmp(argv[0], "echo") == 0) {
-          for(int i = 1; i < argc; i++){
-              printf("%s ", argv[i]);
-          }
-          printf("\n");
-          continue;
-      }
-
-      printf("%s: command not found\n", command);
   }
 
   return 0;
