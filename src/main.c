@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <io.h>
 #include <string.h>
 #define MAX_ARGS 10
 
@@ -9,6 +10,28 @@ typedef enum Commands {
     CMD_TYPE,
     NONE
 } shell_commands;
+
+void check_for_executable(char command[]) {
+    char *path = getenv("PATH");
+    char *dir = strtok(path, ":");
+    while (dir != NULL) {
+        char full_path[1024];
+        //formatting for windows envs
+        if(dir[strlen(dir) - 1] == '\\'){
+            snprintf(full_path, sizeof(full_path), "%s%s", dir, command);
+        }else{
+            snprintf(full_path, sizeof(full_path), "%s\\%s", dir, command);
+        }
+
+        if (_access(full_path, 0) == 0) {
+            printf("%s is %s", command, full_path);
+            return;
+        }
+
+        dir = strtok(NULL, ";");
+    }
+    printf("%s: not found\n", command);
+}
 
 shell_commands parse_command(char command[]){
     if(strcmp(command, "exit") == 0) return CMD_EXIT;
@@ -56,7 +79,7 @@ int main(int argc, char *argv[]) {
             if(parse_command(argv[1]) != NONE)
             printf("%s is a shell builtin\n", argv[1]);
             else
-            printf("%s: not found\n", argv[1]);
+            check_for_executable(argv[1]);
             break;
         default:
             printf("%s: command not found\n", command);
