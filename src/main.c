@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #define MAX_ARGS 10
 
 typedef enum Commands {
@@ -22,7 +23,7 @@ void check_for_executable(char command[]) {
             snprintf(full_path, sizeof(full_path), "%s\\%s", dir, command);
         }
 
-        if (_access(full_path, 0) == 0) {
+        if (access(full_path, X_OK) == 0) {
             printf("%s is %s", command, full_path);
             return;
         }
