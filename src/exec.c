@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 void execute_executable(char *arguments[], int arg_count) {
   pid_t pid = fork();
