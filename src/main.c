@@ -16,8 +16,7 @@ void check_for_executable(char command[]) {
     char *dir = strtok(path, ":");
     while (dir != NULL) {
         char full_path[1024];
-        //formatting for windows envs
-        snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
+        snprintf(full_path, sizeof(full_path), "/%s/%s", dir, command);
 
         if ( access(full_path, X_OK) == 0) {
             printf("%s is %s\n", command, full_path);
