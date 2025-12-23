@@ -17,7 +17,6 @@ void check_for_executable(char command[]) {
     while (dir != NULL) {
         char full_path[1024];
         snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
-        printf("dir : %s, command : %s, full_path : %s", dir, command, full_path);
 
         if ( access(full_path, X_OK) == 0) {
             printf("%s is %s\n", command, full_path);
