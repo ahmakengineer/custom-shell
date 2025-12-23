@@ -12,7 +12,8 @@ typedef enum Commands {
 } shell_commands;
 
 void check_for_executable(char command[]) {
-    char *path = getenv("PATH");
+    char *path_env = getenv("PATH");
+    char *path = strdup(path_env);
     char *dir = strtok(path, ":");
     while (dir != NULL) {
         char full_path[1024];
