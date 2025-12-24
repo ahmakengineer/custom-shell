@@ -10,7 +10,8 @@ void execute_executable(char *arguments[], int arg_count) {
     arguments[arg_count] = NULL;
     execvp(arguments[0], arguments);
   } else if (pid > 0) {
-    wait(NULL);
+        int status;
+        waitpid(pid, &status, 0);
   } else {
     printf("%s: not found", arguments[0]);
   }
