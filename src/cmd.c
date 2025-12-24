@@ -34,7 +34,6 @@ char *find_executable(char executable[]) {
     char full_path[1024];
     snprintf(full_path, sizeof(full_path), "%s/%s", dir, executable);
     if (access(full_path, X_OK) == 0) {
-      printf("%s is %s\n", executable, full_path);
       char *result = strdup(full_path);
       free(path);
       return result;
