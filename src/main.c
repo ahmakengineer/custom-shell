@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
       printf("\n");
       continue;
     case CMD_TYPE:
-      break;
       if (parse_command(argv[1]) != NONE)
         printf("%s is a shell builtin\n", argv[1]);
       else
