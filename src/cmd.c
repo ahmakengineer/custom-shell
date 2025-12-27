@@ -152,7 +152,7 @@ char **parse_arguments(char *input) {
 
 int has_redirection(char **argv) {
   for (int i = 0; argv[i] != NULL; i++) {
-    if (strcmp(argv[i], ">") == 0) {
+    if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], "1>") == 0) {
       return 1; // found
     }
   }

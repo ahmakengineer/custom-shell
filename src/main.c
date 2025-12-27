@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     char *outfile = NULL;
     if (has_redirection(argv)) {
       for (int i = 0; argv[i] != NULL; i++) {
-        if (strcmp(argv[i], ">") == 0) {
+        if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], "1>") == 0) {
           if (argv[i + 1] != NULL) {
             outfile = argv[i + 1]; // store filename
             argv[i] = NULL;        // remove '>' from argv
