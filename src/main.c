@@ -1,4 +1,5 @@
 #include "cmd.h"
+#include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +10,7 @@ int main(int argc, char *argv[]) {
   setbuf(stdout, NULL);
 
   FILE *fp = NULL;
-
+  rl_attempted_completion_function = my_completion;
   // REPL
   while (1) {
     if (fp != NULL) {
@@ -17,14 +18,9 @@ int main(int argc, char *argv[]) {
       freopen("/dev/tty", "w", stdout);
       fp = NULL;
     }
-    // priting shell placholder
-    printf("$ ");
-
-    // declarations
-    char command[1024];
 
     // Get and parse user input
-    fgets(command, sizeof(command), stdin);
+    char *command = readline("$ ");
     command[strcspn(command, "\n")] = '\0';
 
     if (command[0] == '\0') {
@@ -75,6 +71,7 @@ int main(int argc, char *argv[]) {
       execute_executable(argv);
       break;
     }
+    free(command);
   }
   return 0;
 }

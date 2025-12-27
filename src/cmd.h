@@ -8,6 +8,7 @@ typedef enum Commands {
   CMD_CD,
   NONE
 } shell_commands;
+
 #define MAX_ARGS 10
 
 #pragma once
@@ -30,3 +31,6 @@ void execute_executable(char *arguments[]);
 // Type command
 #pragma once
 void check_for_executable(char command[]);
+
+#pragma once
+char **my_completion(const char *text, int start, int end);
