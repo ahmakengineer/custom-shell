@@ -6,6 +6,11 @@
 #include "cmd.h"
 
 void execute_executable(char *arguments[], int arg_count) {
+  if (find_executable(arguments[0]) == NULL) {
+    printf("%s: command not found\n", arguments[0]);
+    return;
+  }
+
   pid_t pid = fork();
   if (pid == 0) {
     arguments[arg_count] = NULL;

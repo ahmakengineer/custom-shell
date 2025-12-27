@@ -1,6 +1,5 @@
 #include "cmd.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -41,7 +40,7 @@ int main(int argc, char *argv[]) {
       else
         check_for_executable(argv[1]);
       break;
-  default:
+    default:
       execute_executable(argv, argc);
       break;
     }
