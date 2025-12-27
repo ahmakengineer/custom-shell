@@ -1,4 +1,10 @@
-typedef enum Commands { CMD_EXIT, CMD_ECHO, CMD_TYPE, NONE } shell_commands;
+typedef enum Commands {
+  CMD_EXIT,
+  CMD_ECHO,
+  CMD_TYPE,
+  CMD_PWD,
+  NONE
+} shell_commands;
 #define MAX_ARGS 10
 
 #pragma once

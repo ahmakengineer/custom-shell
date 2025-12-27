@@ -40,6 +40,9 @@ int main(int argc, char *argv[]) {
       else
         check_for_executable(argv[1]);
       break;
+    case CMD_PWD:
+      printf("%s\n", getcwd(NULL, 0));
+      break;
     default:
       execute_executable(argv, argc);
       break;

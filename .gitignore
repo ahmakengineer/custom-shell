@@ -51,5 +51,15 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+CmakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
 build
 vcpkg_installed
