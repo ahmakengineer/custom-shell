@@ -1,5 +1,6 @@
 #include "cmd.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -33,8 +34,8 @@ int main(int argc, char *argv[]) {
       }
       printf("\n");
       continue;
-      break;
     case CMD_TYPE:
+      break;
       if (parse_command(argv[1]) != NONE)
         printf("%s is a shell builtin\n", argv[1]);
       else
@@ -44,6 +45,15 @@ int main(int argc, char *argv[]) {
       printf("%s\n", getcwd(NULL, 0));
       break;
     case CMD_CD:
+      char *home = getenv("HOME");
+
+      if (strstr(argv[1], "~") != NULL) {
+        char *new = malloc(strlen(home) + strlen(argv[1]));
+        strcpy(new, home);
+        strcat(new, argv[1] + 1);
+        argv[1] = new;
+      }
+
       if (chdir(argv[1]) == -1) {
         printf("cd: %s: No such file or directory\n", argv[1]);
         break;
