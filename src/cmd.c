@@ -149,3 +149,12 @@ char **parse_arguments(char *input) {
   argv[index] = NULL;
   return argv;
 }
+
+int has_redirection(char **argv) {
+  for (int i = 0; argv[i] != NULL; i++) {
+    if (strcmp(argv[i], ">") == 0) {
+      return 1; // found
+    }
+  }
+  return 0; // not found
+}

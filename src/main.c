@@ -8,8 +8,15 @@ int main(int argc, char *argv[]) {
   // Flush after every printf
   setbuf(stdout, NULL);
 
+  FILE *fp = NULL;
+
   // REPL
   while (1) {
+    if (fp != NULL) {
+      fclose(fp);
+      freopen("/dev/tty", "w", stdout);
+      fp = NULL;
+    }
     // priting shell placholder
     printf("$ ");
 
@@ -25,7 +32,23 @@ int main(int argc, char *argv[]) {
     }
     char **argv = parse_arguments(command);
     shell_commands cmd = parse_command(argv[0]);
-
+    char *outfile = NULL;
+    if (has_redirection(argv)) {
+      for (int i = 0; argv[i] != NULL; i++) {
+        if (strcmp(argv[i], ">") == 0) {
+          if (argv[i + 1] != NULL) {
+            outfile = argv[i + 1]; // store filename
+            argv[i] = NULL;        // remove '>' from argv
+            argv[i + 1] = NULL;    // remove filename from argv
+          } else {
+            fprintf(stderr, "syntax error: expected filename after '>'\n");
+          }
+        }
+      }
+    }
+    if (outfile != NULL) {
+      fp = freopen(outfile, "w", stdout);
+    }
     // Handling commands
     switch (cmd) {
     case CMD_EXIT:
@@ -47,7 +70,6 @@ int main(int argc, char *argv[]) {
       printf("%s\n", getcwd(NULL, 0));
       break;
     case CMD_CD:
-
       char *home = getenv("HOME");
       if (strstr(argv[1], "~") != NULL) {
         char *new = malloc(strlen(home) + strlen(argv[1]));
