@@ -43,6 +43,12 @@ int main(int argc, char *argv[]) {
     case CMD_PWD:
       printf("%s\n", getcwd(NULL, 0));
       break;
+    case CMD_CD:
+      if (chdir(argv[1]) == -1) {
+        printf("cd: %s: No such file or directory\n", argv[1]);
+        break;
+      }
+      break;
     default:
       execute_executable(argv, argc);
       break;

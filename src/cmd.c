@@ -24,6 +24,8 @@ shell_commands parse_command(char command[]) {
     return CMD_TYPE;
   if (strcmp(command, "pwd") == 0)
     return CMD_PWD;
+  if (strcmp(command, "cd") == 0)
+    return CMD_CD;
   return NONE;
 }
 

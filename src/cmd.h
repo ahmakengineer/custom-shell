@@ -3,6 +3,7 @@ typedef enum Commands {
   CMD_ECHO,
   CMD_TYPE,
   CMD_PWD,
+  CMD_CD,
   NONE
 } shell_commands;
 #define MAX_ARGS 10
