@@ -56,11 +56,7 @@ char *command_generator(const char *input, int state) {
 
     while ((entry = readdir(dp)) != NULL) {
       if (strncmp(input, entry->d_name, length) == 0) {
-        char full_path[1024];
-        snprintf(full_path, sizeof(full_path), "%s/%s", dirs[index_dir],
-                 entry->d_name);
-        if (access(full_path, X_OK) == 0)
-          return strdup(entry->d_name);
+        return strdup(entry->d_name);
       }
     }
     closedir(dp);
