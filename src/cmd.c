@@ -154,16 +154,25 @@ FILE *has_redirection(char **argv, char *outfile) {
   int redirect = 0;
   int stdout_redirection = 0;
   int index;
+  int isAppend = 0;
   FILE *fp = NULL;
+
   for (int i = 0; argv[i] != NULL; i++) {
+    if (strstr(argv[i], ">") != NULL) {
+      redirect = 1;
+      index = i;
+    }
+
     if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], "1>") == 0) {
-      redirect = 1;
       stdout_redirection = 1;
-      index = i;
     } else if (strcmp(argv[i], "2>") == 0) {
-      redirect = 1;
       stdout_redirection = 2;
-      index = i;
+    } else if (strcmp(argv[i], ">>") == 0 || strcmp(argv[i], "1>>") == 0) {
+      isAppend = 1;
+      stdout_redirection = 1;
+    } else if (strcmp(argv[i], "2>>") == 0) {
+      isAppend = 1;
+      stdout_redirection = 2;
     }
   }
   if (redirect == 1) {
@@ -171,9 +180,17 @@ FILE *has_redirection(char **argv, char *outfile) {
     outfile = argv[index + 1]; // store filename
     argv[index + 1] = NULL;    // remove filename from argv
     if (stdout_redirection == 1) {
-      fp = freopen(outfile, "w", stdout);
+      if (isAppend == 1) {
+        fp = freopen(outfile, "a", stdout);
+      } else {
+        fp = freopen(outfile, "w", stdout);
+      }
     } else if (stdout_redirection == 2) {
-      fp = freopen(outfile, "w", stderr);
+      if (isAppend == 1) {
+        fp = freopen(outfile, "w", stderr);
+      } else {
+        fp = freopen(outfile, "w", stderr);
+      }
     }
   }
   return fp; // found
