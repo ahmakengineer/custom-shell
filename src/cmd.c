@@ -77,6 +77,11 @@ char **parse_arguments(char *input) {
       }
 
       while (input[cursor] != '\0') {
+        if (input[cursor] == '\\') {
+          cursor++;
+          token[token_cursor++] = input[cursor++];
+          continue;
+        }
         if (input[cursor] == '"') {
           // Escaped single quote: ''
           if (input[cursor + 1] == '"') {
