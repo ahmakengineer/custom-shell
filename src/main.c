@@ -15,12 +15,15 @@ int main(int argc, char *argv[]) {
 
     // declarations
     char command[1024];
-    char *argv[MAX_ARGS];
 
     // Get and parse user input
     fgets(command, sizeof(command), stdin);
     command[strcspn(command, "\n")] = '\0';
-    int argc = get_arguments(command, argv);
+
+    if (command[0] == '\0') {
+      continue;
+    }
+    char **argv = parse_arguments(command);
     shell_commands cmd = parse_command(argv[0]);
 
     // Handling commands
@@ -29,7 +32,7 @@ int main(int argc, char *argv[]) {
       return 0;
       break;
     case CMD_ECHO:
-      for (int i = 1; i < argc; i++) {
+      for (int i = 1; argv[i] != NULL; i++) {
         printf("%s ", argv[i]);
       }
       printf("\n");
@@ -44,8 +47,8 @@ int main(int argc, char *argv[]) {
       printf("%s\n", getcwd(NULL, 0));
       break;
     case CMD_CD:
-      char *home = getenv("HOME");
 
+      char *home = getenv("HOME");
       if (strstr(argv[1], "~") != NULL) {
         char *new = malloc(strlen(home) + strlen(argv[1]));
         strcpy(new, home);
