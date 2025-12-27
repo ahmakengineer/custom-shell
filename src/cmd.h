@@ -24,7 +24,7 @@ int get_arguments(char command[], char *argv[]);
 char *find_executable(char executable[]);
 
 #pragma once
-void execute_executable(char *arguments[], int arg_count);
+void execute_executable(char *arguments[]);
 // Type command
 #pragma once
 void check_for_executable(char command[]);

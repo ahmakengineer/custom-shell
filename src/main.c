@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
       }
       break;
     default:
-      execute_executable(argv, argc);
+      execute_executable(argv);
       break;
     }
   }
