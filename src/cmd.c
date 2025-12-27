@@ -63,7 +63,12 @@ char **parse_arguments(char *input) {
       }
       cursor++;
       break;
-
+    case '\\':
+      cursor++;
+      current = input[cursor];
+      token[token_cursor++] = current;
+      cursor++;
+      break;
     case '"':
       cursor++;
       if (input[cursor + 1] == '"') {
