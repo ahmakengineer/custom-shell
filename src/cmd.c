@@ -50,41 +50,76 @@ char **parse_arguments(char *input) {
   while (input[cursor] != '\0') {
     char current = input[cursor];
 
-    // Whitespace: end token
-    if (current == ' ' || current == '\t' || current == '\n') {
+    switch (current) {
+
+    // Whitespace → end token
+    case ' ':
+    case '\t':
+    case '\n':
       if (token_cursor > 0) {
         token[token_cursor] = '\0';
         argv[index++] = strdup(token);
         token_cursor = 0;
       }
       cursor++;
-      continue;
-    }
+      break;
 
-    // Single-quoted token
-    if (current == '\'') {
-      if (input[cursor + 1] == '\'') {
-        cursor += 2;
+    case '"':
+      cursor++;
+      if (input[cursor + 1] == '"') {
+        cursor++;
         continue;
       }
-      cursor++; // skip opening quote
+
       while (input[cursor] != '\0') {
-        if (input[cursor] == '\'') {
-          if (input[cursor + 1] == '\'') {
+        if (input[cursor] == '"') {
+          // Escaped single quote: ''
+          if (input[cursor + 1] == '"') {
             cursor += 2;
-          } else {
-            break;
+            continue;
           }
+          break; // closing quote
         }
         token[token_cursor++] = input[cursor++];
       }
+
+      // Skip closing quote if present
+      if (input[cursor] == '"')
+        cursor++;
+      break;
+
+    // Single-quoted token
+    case '\'':
+      // Skip opening quote
+      cursor++;
+      if (input[cursor + 1] == '\'') {
+        cursor++;
+        continue;
+      }
+
+      while (input[cursor] != '\0') {
+        if (input[cursor] == '\'') {
+          // Escaped single quote: ''
+          if (input[cursor + 1] == '\'') {
+            cursor += 2;
+            continue;
+          }
+          break; // closing quote
+        }
+        token[token_cursor++] = input[cursor++];
+      }
+
+      // Skip closing quote if present
       if (input[cursor] == '\'')
-        cursor++; // skip closing quote
-      continue;
-    }
+        cursor++;
+      break;
+
     // Normal character
-    token[token_cursor++] = current;
-    cursor++;
+    default:
+      token[token_cursor++] = current;
+      cursor++;
+      break;
+    }
   }
 
   // Final token
@@ -100,11 +135,4 @@ char **parse_arguments(char *input) {
 
   argv[index] = NULL;
   return argv;
-}
-
-void move_cursor(int *cursor, int *size, char current, char *input) {
-  if (cursor < size && current != '\0') {
-    cursor++;
-    current = input[*cursor];
-  }
 }
