@@ -187,7 +187,7 @@ FILE *has_redirection(char **argv, char *outfile) {
       }
     } else if (stdout_redirection == 2) {
       if (isAppend == 1) {
-        fp = freopen(outfile, "w", stderr);
+        fp = freopen(outfile, "a", stderr);
       } else {
         fp = freopen(outfile, "w", stderr);
       }
