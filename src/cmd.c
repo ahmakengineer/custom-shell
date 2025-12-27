@@ -150,11 +150,31 @@ char **parse_arguments(char *input) {
   return argv;
 }
 
-int has_redirection(char **argv) {
+FILE *has_redirection(char **argv, char *outfile) {
+  int redirect = 0;
+  int stdout_redirection = 0;
+  int index;
+  FILE *fp = NULL;
   for (int i = 0; argv[i] != NULL; i++) {
     if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], "1>") == 0) {
-      return 1; // found
+      redirect = 1;
+      stdout_redirection = 1;
+      index = i;
+    } else if (strcmp(argv[i], "2>") == 0) {
+      redirect = 1;
+      stdout_redirection = 2;
+      index = i;
     }
   }
-  return 0; // not found
+  if (redirect == 1) {
+    argv[index] = NULL;        // remove '>' from argv
+    outfile = argv[index + 1]; // store filename
+    argv[index + 1] = NULL;    // remove filename from argv
+    if (stdout_redirection == 1) {
+      fp = freopen(outfile, "w", stdout);
+    } else if (stdout_redirection == 2) {
+      fp = freopen(outfile, "w", stderr);
+    }
+  }
+  return fp; // found
 }

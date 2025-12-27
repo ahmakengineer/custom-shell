@@ -33,19 +33,7 @@ int main(int argc, char *argv[]) {
     char **argv = parse_arguments(command);
     shell_commands cmd = parse_command(argv[0]);
     char *outfile = NULL;
-    if (has_redirection(argv)) {
-      for (int i = 0; argv[i] != NULL; i++) {
-        if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], "1>") == 0) {
-          if (argv[i + 1] != NULL) {
-            outfile = argv[i + 1]; // store filename
-            argv[i] = NULL;        // remove '>' from argv
-            argv[i + 1] = NULL;    // remove filename from argv
-          } else {
-            fprintf(stderr, "syntax error: expected filename after '>'\n");
-          }
-        }
-      }
-    }
+    fp = has_redirection(argv, outfile);
     if (outfile != NULL) {
       fp = freopen(outfile, "w", stdout);
     }

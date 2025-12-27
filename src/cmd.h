@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 typedef enum Commands {
   CMD_EXIT,
   CMD_ECHO,
@@ -15,7 +17,7 @@ shell_commands parse_command(char command[]);
 char **parse_arguments(char *input);
 
 #pragma once
-int has_redirection(char **argv);
+FILE *has_redirection(char **argv, char *outfile);
 
 #pragma once
 int get_arguments(char command[], char *argv[]);
