@@ -1,34 +1,24 @@
 [![progress-banner](https://backend.codecrafters.io/progress/shell/1d0ebd7d-84d8-4ec3-8474-908e6150c9eb)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
-This is a starting point for C solutions to the
-["Build Your Own Shell" Challenge](https://app.codecrafters.io/courses/shell/overview).
+Custom Shell Implementation
+A lightweight, Unix-like shell implementation built from scratch. This project demonstrates core operating system concepts including process management, system calls, and I/O redirection.
 
-In this challenge, you'll build your own POSIX compliant shell that's capable of
-interpreting shell commands, running external programs and builtin commands like
-cd, pwd, echo and more. Along the way, you'll learn about shell command parsing,
-REPLs, builtin commands, and more.
+🚀 Features
+Command Execution: Run standard system commands (e.g., ls, grep, cat, mkdir).
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+Built-in Commands: - cd: Change directory.
 
-# Passing the first stage
+pwd: Print current working directory.
 
-The entry point for your `shell` implementation is in `src/main.c`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
+exit: Safely close the shell.
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
+I/O Redirection: - Output redirection (>) to save command output to a file.
 
-Time to move on to the next stage!
+Piping (|): Connect multiple commands together, passing the output of one as the input to the next.
 
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `cmake` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `src/main.c`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+## ⌨️ Advanced Interaction
+- **Command History:** Use the `history` command to see the last 10 commands or use Up/Down arrows.
+  
+- **Tab Completion:** Supports smart completion for file paths and internal commands.
+  
+- **Persistent History:** Commands are saved to `HISTFILE` across sessions.
