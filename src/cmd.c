@@ -155,6 +155,8 @@ char **parse_arguments(char *input) {
 int handle_command(shell_commands cmd, char **argv) {
   switch (cmd) {
   case CMD_EXIT:
+    char *history = getenv("HISTFILE");
+    write_history_to_file(history);
     return 2;
     break;
   case CMD_ECHO:
@@ -190,8 +192,28 @@ int handle_command(shell_commands cmd, char **argv) {
     }
     break;
   case CMD_HISTORY:
-    int count = 10;
+    int count = 100;
     if (argv[1] != NULL) {
+      if (strcmp(argv[1], "-r") == 0) {
+        if (argv[2] == NULL) {
+          fprintf(stderr, "history: missing filename argument\n");
+        }
+        read_history_from_file(argv[2]);
+      }
+      if (strcmp(argv[1], "-w") == 0) {
+        if (argv[2] == NULL) {
+          fprintf(stderr, "history: missing filename argument\n");
+        }
+        write_history_to_file(argv[2]);
+      }
+      break;
+      if (strcmp(argv[1], "-a") == 0) {
+        if (argv[2] == NULL) {
+          fprintf(stderr, "history: missing filename argument\n");
+        }
+        append_history_to_file(argv[2]);
+        break;
+      }
       count = argv[1] ? atoi(argv[1]) : 10;
     }
     print_history(count);

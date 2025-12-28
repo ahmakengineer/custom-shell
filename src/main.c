@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
 
   FILE *fp = NULL;
   rl_attempted_completion_function = my_completion;
+  char *history = getenv("HISTFILE");
+  read_history_from_file(history);
   // REPL
   while (1) {
     if (fp != NULL) {

@@ -1,0 +1,11 @@
+echo 1 
+echo 2
+history
+history -w test
+echo 1 
+echo 2
+history
+history -w test
+cat test
+echo append
+history -a test

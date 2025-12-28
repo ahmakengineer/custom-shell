@@ -44,3 +44,12 @@ int handle_command(shell_commands cmd, char **argv);
 
 #pragma once
 void print_history(int count);
+
+#pragma once
+void read_history_from_file(char *filename);
+
+#pragma once
+void append_history_to_file(char *filename);
+
+#pragma once
+void write_history_to_file(char *filename);

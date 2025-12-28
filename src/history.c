@@ -5,11 +5,18 @@
 #include <unistd.h>
 
 void print_history(int count) {
-  HISTORY_STATE *history_state = history_get_history_state();
   HIST_ENTRY **history = history_list();
-  int start_at = history_state->length - count;
+  int start_at = history_length - count;
   start_at = start_at < 0 ? 0 : start_at;
-  for (int i = start_at; i < history_state->length; i++) {
+  for (int i = start_at; i < history_length; i++) {
     printf("    %d  %s\n", i + 1, history[i]->line);
   }
+}
+
+void read_history_from_file(char *filename) { read_history(filename); }
+
+void write_history_to_file(char *filename) { write_history(filename); }
+
+void append_history_to_file(char *filename) {
+  append_history(history_length, filename);
 }
