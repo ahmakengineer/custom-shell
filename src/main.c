@@ -29,9 +29,15 @@ int main(int argc, char *argv[]) {
     char **argv = parse_arguments(command);
     shell_commands cmd = parse_command(argv[0]);
     char *outfile = NULL;
-    fp = has_redirection(argv, outfile);
-    if (outfile != NULL) {
-      fp = freopen(outfile, "w", stdout);
+    if (strstr(command, "|") != NULL) {
+      execute_pipeline(argv);
+      continue;
+    }
+    if (strstr(command, ">") != NULL) {
+      fp = redirect(argv, outfile);
+      if (outfile != NULL) {
+        fp = freopen(outfile, "w", stdout);
+      }
     }
     // Handling commands
     switch (cmd) {

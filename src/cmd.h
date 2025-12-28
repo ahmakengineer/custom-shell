@@ -18,7 +18,10 @@ shell_commands parse_command(char command[]);
 char **parse_arguments(char *input);
 
 #pragma once
-FILE *has_redirection(char **argv, char *outfile);
+FILE *redirect(char **argv, char *outfile);
+
+#pragma once
+void execute_pipeline(char **argv);
 
 #pragma once
 int get_arguments(char command[], char *argv[]);
