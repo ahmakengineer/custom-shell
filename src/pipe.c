@@ -43,7 +43,6 @@ void execute_pipeline(char **argv) {
 
   int n_cmds = count_commands(argv);
   char ***cmds = split_pipeline(argv, &n_cmds);
-
   int pipes[n_cmds - 1][2];
 
   // Create pipes

@@ -9,7 +9,7 @@ typedef enum Commands {
   NONE
 } shell_commands;
 
-#define MAX_ARGS 10
+#define MAX_ARGS 50
 
 #pragma once
 shell_commands parse_command(char command[]);
