@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   rl_attempted_completion_function = my_completion;
   char *history = getenv("HISTFILE");
   read_history_from_file(history);
-  current_history_index = history_length;
+  current_history_index = history_length - 1;
   // REPL
   while (1) {
     if (fp != NULL) {
