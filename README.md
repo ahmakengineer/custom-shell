@@ -1,25 +1,115 @@
-[![progress-banner](https://backend.codecrafters.io/progress/shell/1d0ebd7d-84d8-4ec3-8474-908e6150c9eb)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+🐚 Custom UNIX Shell — Systems Programming in C
 
-Custom Shell Implementation
-A lightweight, Unix-like shell implementation built from scratch. This project demonstrates core operating system concepts including process management, system calls, and I/O redirection.
+A UNIX-like command shell implemented in C, designed to explore Linux internals, POSIX system calls, and process orchestration.
+The project emphasizes correctness, performance, and modular design, reflecting real-world systems engineering practices.
 
-🚀 Features
+📌 Project Overview
 
-Command Execution: Run standard system commands (e.g., ls, grep, cat, mkdir).
+Implemented a fully functional shell capable of executing built-in and external commands
 
-Built-in Commands: - cd: Change directory.
+Designed to model how modern shells interact with the Linux kernel
 
-pwd: Print current working directory.
+Focused on process lifecycle management, file descriptor control, and memory safety
 
-exit: Safely close the shell.
+This project demonstrates practical experience in low-level C programming and Linux systems engineering.
 
-I/O Redirection: - Output redirection (>) to save command output to a file.
+⚙️ Core Capabilities
 
-Piping (|): Connect multiple commands together, passing the output of one as the input to the next.
+Command parsing and execution
 
-## ⌨️ Advanced Interaction
-- **Command History:** Use the `history` command to see the last 10 commands or use Up/Down arrows.
-  
-- **Tab Completion:** Supports smart completion for file paths and internal commands.
-  
-- **Persistent History:** Commands are saved to `HISTFILE` across sessions.
+Built-in command handling
+
+External program execution via fork, exec, and wait
+
+Pipelines (|) for inter-process communication
+
+Input / Output redirection (<, >)
+
+Background execution (&)
+
+Defensive error handling and resource cleanup
+
+🧩 Technical Highlights
+
+Direct use of POSIX APIs
+
+Explicit file descriptor management
+
+Careful handling of edge cases (invalid commands, failed syscalls)
+
+Modular design enabling easy extension
+
+Minimal dependencies, portable across UNIX-like systems
+
+🏗 Design & Architecture
+
+The shell follows a clear separation of concerns:
+
+Lexer — Tokenizes raw user input
+
+Parser — Converts tokens into executable command structures
+
+Executor — Manages process creation, piping, redirection, and execution
+
+Built-ins — Handles internal commands without spawning new processes
+
+This structure mirrors production-grade system software design.
+
+🛠 Build & Run
+Requirements
+
+Linux / UNIX environment
+
+GCC or Clang
+
+Build
+gcc -Wall -Wextra -O2 -o custom-shell *.c
+
+Run
+./custom-shell
+
+🧪 Sample Usage
+ls -l
+cat file.txt | grep "error"
+echo "Hello World" > output.txt
+sleep 5 &
+
+📈 Engineering Focus
+
+This project prioritizes:
+
+System correctness over shortcuts
+
+Performance-aware C programming
+
+Explicit resource management
+
+Readable, maintainable low-level code
+
+Skills demonstrated are directly applicable to:
+
+Systems / Platform Engineering
+
+Embedded Linux
+
+Backend Infrastructure
+
+Performance-critical services
+
+🔮 Planned Enhancements
+
+Job control (fg, bg)
+
+Signal handling (SIGINT, SIGCHLD)
+
+Command history
+
+Environment variable expansion
+
+👤 Author
+
+Mahammad Shahid Karaneshi
+
+GitHub: https://github.com/ahmakengineer
+
+LinkedIn: https://linkedin.com/in/mahammadsk
