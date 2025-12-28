@@ -40,43 +40,7 @@ int main(int argc, char *argv[]) {
       }
     }
     // Handling commands
-    switch (cmd) {
-    case CMD_EXIT:
-      return 0;
-      break;
-    case CMD_ECHO:
-      for (int i = 1; argv[i] != NULL; i++) {
-        printf("%s ", argv[i]);
-      }
-      printf("\n");
-      continue;
-    case CMD_TYPE:
-      if (parse_command(argv[1]) != NONE)
-        printf("%s is a shell builtin\n", argv[1]);
-      else
-        check_for_executable(argv[1]);
-      break;
-    case CMD_PWD:
-      printf("%s\n", getcwd(NULL, 0));
-      break;
-    case CMD_CD:
-      char *home = getenv("HOME");
-      if (strstr(argv[1], "~") != NULL) {
-        char *new = malloc(strlen(home) + strlen(argv[1]));
-        strcpy(new, home);
-        strcat(new, argv[1] + 1);
-        argv[1] = new;
-      }
-
-      if (chdir(argv[1]) == -1) {
-        printf("cd: %s: No such file or directory\n", argv[1]);
-        break;
-      }
-      break;
-    default:
-      execute_executable(argv);
-      break;
-    }
+    handle_command(cmd, argv);
     free(command);
   }
   return 0;

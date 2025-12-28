@@ -40,8 +40,10 @@ char ***split_pipeline(char **argv, int *n_cmds) {
 }
 
 void execute_pipeline(char **argv) {
+
   int n_cmds = count_commands(argv);
   char ***cmds = split_pipeline(argv, &n_cmds);
+
   int pipes[n_cmds - 1][2];
 
   // Create pipes
@@ -67,10 +69,15 @@ void execute_pipeline(char **argv) {
         close(pipes[j][0]);
         close(pipes[j][1]);
       }
-
-      execvp(cmds[i][0], cmds[i]);
-      perror("execvp");
-      _exit(1);
+      shell_commands cmd = parse_command(cmds[i][0]);
+      if (cmd != NONE) {
+        handle_command(cmd, cmds[i]);
+        _exit(1);
+      } else {
+        execvp(cmds[i][0], cmds[i]);
+        perror(cmds[i][0]);
+        _exit(1);
+      }
     }
   }
 

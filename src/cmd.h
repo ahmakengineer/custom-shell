@@ -37,3 +37,6 @@ void check_for_executable(char command[]);
 
 #pragma once
 char **my_completion(const char *text, int start, int end);
+
+#pragma once
+int handle_command(shell_commands cmd, char **argv);

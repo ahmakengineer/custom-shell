@@ -149,3 +149,47 @@ char **parse_arguments(char *input) {
   argv[index] = NULL;
   return argv;
 }
+
+int handle_command(shell_commands cmd, char **argv) {
+  switch (cmd) {
+  case CMD_EXIT:
+    return 0;
+    break;
+  case CMD_ECHO:
+    for (int i = 1; argv[i] != NULL; i++) {
+      if (i > 1) {
+        printf(" ");
+      }
+      printf("%s", argv[i]);
+    }
+    printf("\n");
+    return 0;
+  case CMD_TYPE:
+    if (parse_command(argv[1]) != NONE)
+      printf("%s is a shell builtin\n", argv[1]);
+    else
+      check_for_executable(argv[1]);
+    break;
+  case CMD_PWD:
+    printf("%s\n", getcwd(NULL, 0));
+    break;
+  case CMD_CD:
+    char *home = getenv("HOME");
+    if (strstr(argv[1], "~") != NULL) {
+      char *new = malloc(strlen(home) + strlen(argv[1]));
+      strcpy(new, home);
+      strcat(new, argv[1] + 1);
+      argv[1] = new;
+    }
+
+    if (chdir(argv[1]) == -1) {
+      printf("cd: %s: No such file or directory\n", argv[1]);
+      break;
+    }
+    break;
+  default:
+    execute_executable(argv);
+    break;
+  }
+  return 0;
+}
