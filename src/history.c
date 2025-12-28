@@ -19,4 +19,5 @@ void write_history_to_file(char *filename) { write_history(filename); }
 
 void append_history_to_file(char *filename) {
   append_history(history_length - current_history_index, filename);
+  current_history_index = history_length;
 }
