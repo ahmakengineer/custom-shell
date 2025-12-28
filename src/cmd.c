@@ -205,8 +205,8 @@ int handle_command(shell_commands cmd, char **argv) {
           fprintf(stderr, "history: missing filename argument\n");
         }
         write_history_to_file(argv[2]);
+        break;
       }
-      break;
       if (strcmp(argv[1], "-a") == 0) {
         if (argv[2] == NULL) {
           fprintf(stderr, "history: missing filename argument\n");
