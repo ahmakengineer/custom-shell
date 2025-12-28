@@ -43,4 +43,4 @@ char **my_completion(const char *text, int start, int end);
 int handle_command(shell_commands cmd, char **argv);
 
 #pragma once
-void print_history();
+void print_history(int count);

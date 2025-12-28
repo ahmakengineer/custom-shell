@@ -190,7 +190,11 @@ int handle_command(shell_commands cmd, char **argv) {
     }
     break;
   case CMD_HISTORY:
-    print_history();
+    int count = 10;
+    if (argv[1] != NULL) {
+      count = argv[1] ? atoi(argv[1]) : 10;
+    }
+    print_history(count);
     break;
   default:
     execute_executable(argv);
