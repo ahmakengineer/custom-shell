@@ -1,11 +1,29 @@
-echo 1 
-echo 2
 history
-history -w test
-echo 1 
+history
+exit
+echo 1
 echo 2
+cat tes
+cat test
+history -a test
+cat test
+history -a test
+cat test
 history
 history -w test
 cat test
-echo append
+history -a test
+cat test
+exit
+cat test
+history -a test 
+cat test
+exit
+cat test
+rm test
+history -w test
+cat test
+rm test
+history -w test
+cat test
 history -a test

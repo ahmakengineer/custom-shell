@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
+extern int current_history_index;
 void print_history(int count) {
   HIST_ENTRY **history = history_list();
   int start_at = history_length - count;
@@ -18,5 +18,5 @@ void read_history_from_file(char *filename) { read_history(filename); }
 void write_history_to_file(char *filename) { write_history(filename); }
 
 void append_history_to_file(char *filename) {
-  append_history(history_length, filename);
+  append_history(history_length - current_history_index, filename);
 }
