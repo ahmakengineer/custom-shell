@@ -23,6 +23,8 @@ int main(int argc, char *argv[]) {
     char *command = readline("$ ");
     command[strcspn(command, "\n")] = '\0';
 
+    add_history(command);
+
     if (command[0] == '\0') {
       continue;
     }

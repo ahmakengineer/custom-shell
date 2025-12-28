@@ -2,12 +2,12 @@
 #include <dirent.h>
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-const char *command_strings[] = {"exit", "echo", "type", "pwd", "cd"};
+const char *command_strings[] = {"exit", "echo", "type",
+                                 "pwd",  "cd",   "history"};
 
 char *command_generator(const char *input, int state) {
   static int index_cmd, index_dir;

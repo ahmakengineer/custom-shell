@@ -6,6 +6,7 @@ typedef enum Commands {
   CMD_TYPE,
   CMD_PWD,
   CMD_CD,
+  CMD_HISTORY,
   NONE
 } shell_commands;
 
@@ -40,3 +41,6 @@ char **my_completion(const char *text, int start, int end);
 
 #pragma once
 int handle_command(shell_commands cmd, char **argv);
+
+#pragma once
+void print_history();

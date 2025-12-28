@@ -15,6 +15,8 @@ shell_commands parse_command(char command[]) {
     return CMD_PWD;
   if (strcmp(command, "cd") == 0)
     return CMD_CD;
+  if (strcmp(command, "history") == 0)
+    return CMD_HISTORY;
   return NONE;
 }
 
@@ -186,6 +188,9 @@ int handle_command(shell_commands cmd, char **argv) {
       printf("cd: %s: No such file or directory\n", argv[1]);
       break;
     }
+    break;
+  case CMD_HISTORY:
+    print_history();
     break;
   default:
     execute_executable(argv);
