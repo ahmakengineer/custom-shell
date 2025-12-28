@@ -4,6 +4,7 @@ Custom Shell Implementation
 A lightweight, Unix-like shell implementation built from scratch. This project demonstrates core operating system concepts including process management, system calls, and I/O redirection.
 
 🚀 Features
+
 Command Execution: Run standard system commands (e.g., ls, grep, cat, mkdir).
 
 Built-in Commands: - cd: Change directory.
