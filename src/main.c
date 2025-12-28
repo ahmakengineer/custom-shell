@@ -40,7 +40,10 @@ int main(int argc, char *argv[]) {
       }
     }
     // Handling commands
-    handle_command(cmd, argv);
+    int code = handle_command(cmd, argv);
+    if (code == 2) {
+      return 0;
+    }
     free(command);
   }
   return 0;

@@ -153,7 +153,7 @@ char **parse_arguments(char *input) {
 int handle_command(shell_commands cmd, char **argv) {
   switch (cmd) {
   case CMD_EXIT:
-    return 0;
+    return 2;
     break;
   case CMD_ECHO:
     for (int i = 1; argv[i] != NULL; i++) {
