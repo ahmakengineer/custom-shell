@@ -9,6 +9,6 @@ void print_history() {
   HIST_ENTRY **history = history_list();
 
   for (int i = 0; i < history_state->length; i++) {
-    printf("\t%d: %s\n", i + 1, history[i]->line);
+    printf("    %d  %s\n", i + 1, history[i]->line);
   }
 }
