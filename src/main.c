@@ -35,9 +35,6 @@ int main(int argc, char *argv[]) {
     }
     if (strstr(command, ">") != NULL) {
       fp = redirect(argv, outfile);
-      if (outfile != NULL) {
-        fp = freopen(outfile, "w", stdout);
-      }
     }
     // Handling commands
     int code = handle_command(cmd, argv);
